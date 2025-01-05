@@ -25,7 +25,7 @@ export default function Home() {
     <div className="container mx-auto px-8 md:px-20 h-screen">
       <div className="my-8 container mx-auto flex justify-between">
         <Link href={"/"}>
-          <span className="font-bold">Lyrics</span>
+          <span className="font-bold">Lysong</span>
         </Link>
 
         <div>
