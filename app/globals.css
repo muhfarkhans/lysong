@@ -2,20 +2,87 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Quicksand, Helvetica, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply dark:bg-[#0a0a0a] 
+        bg-[#edf6f9];
+  }
+}
+
+/* add the code bellow */
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+/* Container for the text */
+.scroll-container {
+  position: relative;
+  height: 100px; /* Adjust to control the height of the viewport */
+  overflow: hidden;
+  background-color: #f3f3f3; /* Light background for contrast */
+}
+
+/* The actual scrolling text */
+.scroll-text {
+  position: absolute;
+  width: 100%;
+  animation: scrollText 10s linear infinite;
+  font-size: 24px;
+  white-space: nowrap;
+  padding-left: 10px;
+  font-family: Arial, sans-serif;
+}
+
+/* Keyframes to scroll the text */
+@keyframes scrollText {
+  0% {
+    top: 100%; /* Start below the container */
+  }
+  100% {
+    top: -100%; /* End above the container */
+  }
+}
+
+/* In your CSS file, e.g., styles.css */
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* In your CSS file, e.g., styles.css */
+.fade-out-to-top {
+  animation: fadeOutTop 2s forwards;
+}
+
+@keyframes fadeOutTop {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px); /* Move the element 50px upwards */
+  }
 }
