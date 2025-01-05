@@ -9,7 +9,7 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
-  title: "Lets sing a song",
+  title: "Lysong - Lets sing a song",
   description: "Sing a song",
 };
 
