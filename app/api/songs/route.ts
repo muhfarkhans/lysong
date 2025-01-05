@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import { connectToMongoDB } from "@/lib/mongodb";
 import Lyric from "@/models/lyric";
 import Song from "@/models/song";
@@ -19,10 +20,10 @@ export async function GET(request: Request) {
 
     const songs = await Song.find(query).populate("lyric");
 
-    return Response.json({ message: true, data: songs }, { status: 200 });
+    return NextResponse.json({ message: true, data: songs }, { status: 200 });
   } catch (error) {
     console.error("Error fetching songs:", error);
-    return Response.json({ message: false, data: null }, { status: 500 });
+    return NextResponse.json({ message: false, data: null }, { status: 500 });
   }
 }
 
@@ -50,7 +51,7 @@ export async function POST(request: Request) {
 
   const token = request.headers.get("token");
   if (token !== process.env.TOKEN) {
-    return Response.json(
+    return NextResponse.json(
       { message: false, data: "Not authorized" },
       { status: 403 }
     );
@@ -62,7 +63,7 @@ export async function POST(request: Request) {
     const { error } = songSchema.validate(data, { abortEarly: false });
 
     if (error) {
-      return Response.json(
+      return NextResponse.json(
         { message: false, data: error.details },
         { status: 422 }
       );
@@ -87,9 +88,9 @@ export async function POST(request: Request) {
       }
     }
 
-    return Response.json({ message: true, data: data }, { status: 201 });
+    return NextResponse.json({ message: true, data: data }, { status: 201 });
   } catch (error) {
     console.error("Error creating song:", error);
-    return Response.json({ message: false, data: null }, { status: 500 });
+    return NextResponse.json({ message: false, data: null }, { status: 500 });
   }
 }
