@@ -7,106 +7,106 @@ const START_TIME: number = 0;
 const SubtitleDisplay = ({ song }: SubtitleDisplayProps) => {
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(START_TIME);
-  const [activeSubtitle, setActiveSubtitle] = useState<any>([]);
-  const [listSubtitle, setListSubtitle] = useState<
-    Array<{
-      idLyric: string;
-      sec: number;
-      secLast: number;
-      text: string;
-      isLyric: boolean;
-      isLast: boolean;
-      prev: number;
-      next: number;
-    }>
-  >([]);
+  const [activeSubtitle, setActiveSubtitle] = useState<Array<Lyric | null>>([]);
+  // const [listSubtitle, setListSubtitle] = useState<
+  //   Array<{
+  //     idLyric: string;
+  //     sec: number;
+  //     secLast: number;
+  //     text: string;
+  //     isLyric: boolean;
+  //     isLast: boolean;
+  //     prev: number;
+  //     next: number;
+  //   }>
+  // >([]);
 
-  useEffect(() => {
-    const duration = timeToSeconds(song.timeEnd);
+  // useEffect(() => {
+  //   const duration = timeToSeconds(song.timeEnd);
 
-    const subtitles: Array<{
-      idLyric: string;
-      sec: number;
-      secLast: number;
-      text: string;
-      isLyric: boolean;
-      isLast: boolean;
-      prev: number;
-      next: number;
-    }> = [];
+  //   const subtitles: Array<{
+  //     idLyric: string;
+  //     sec: number;
+  //     secLast: number;
+  //     text: string;
+  //     isLyric: boolean;
+  //     isLast: boolean;
+  //     prev: number;
+  //     next: number;
+  //   }> = [];
 
-    for (let index = 1; index <= duration; index++) {
-      const currIndex = song.lyric.findIndex(
-        (sub) =>
-          index >= timeToSeconds(sub.start) && index <= timeToSeconds(sub.end)
-      );
+  //   for (let index = 1; index <= duration; index++) {
+  //     const currIndex = song.lyric.findIndex(
+  //       (sub) =>
+  //         index >= timeToSeconds(sub.start) && index <= timeToSeconds(sub.end)
+  //     );
 
-      let text: string = "...";
-      let isLyric: boolean = false;
-      let isLast: boolean = false;
-      let idLyric: string = "index-" + index;
-      let prev: number = 0;
-      let next: number = timeToSeconds(song.timeEnd);
-      let secLast: number = duration;
+  //     let text: string = "...";
+  //     let isLyric: boolean = false;
+  //     let isLast: boolean = false;
+  //     let idLyric: string = "index-" + index;
+  //     let prev: number = 0;
+  //     let next: number = timeToSeconds(song.timeEnd);
+  //     let secLast: number = duration;
 
-      if (currIndex >= 0) {
-        secLast = timeToSeconds(song.lyric[currIndex].end);
-        text = song.lyric[currIndex].text;
-        idLyric = song.lyric[currIndex]._id;
+  //     if (currIndex >= 0) {
+  //       secLast = timeToSeconds(song.lyric[currIndex].end);
+  //       text = song.lyric[currIndex].text;
+  //       idLyric = song.lyric[currIndex]._id;
 
-        if (song.lyric[currIndex - 1]) {
-          prev = timeToSeconds(song.lyric[currIndex - 1].end) - 1;
-        }
+  //       if (song.lyric[currIndex - 1]) {
+  //         prev = timeToSeconds(song.lyric[currIndex - 1].end) - 1;
+  //       }
 
-        if (song.lyric[currIndex + 1]) {
-          next = timeToSeconds(song.lyric[currIndex + 1].start) - 1;
-        }
-      }
+  //       if (song.lyric[currIndex + 1]) {
+  //         next = timeToSeconds(song.lyric[currIndex + 1].start) - 1;
+  //       }
+  //     }
 
-      subtitles.push({
-        idLyric: idLyric,
-        sec: index,
-        secLast: secLast,
-        text: text,
-        isLyric: isLyric,
-        isLast: isLast,
-        prev: prev,
-        next: next,
-      });
-    }
+  //     subtitles.push({
+  //       idLyric: idLyric,
+  //       sec: index,
+  //       secLast: secLast,
+  //       text: text,
+  //       isLyric: isLyric,
+  //       isLast: isLast,
+  //       prev: prev,
+  //       next: next,
+  //     });
+  //   }
 
-    const newSubtitle = subtitles.map((subtitle, index) => {
-      let isLyric = subtitle.isLyric;
-      let isLast = subtitle.isLast;
+  //   const newSubtitle = subtitles.map((subtitle, index) => {
+  //     let isLyric = subtitle.isLyric;
+  //     let isLast = subtitle.isLast;
 
-      if (index > 0) {
-        if (subtitle.idLyric != subtitles[index - 1].idLyric) {
-          isLyric = true;
-        }
-      }
+  //     if (index > 0) {
+  //       if (subtitle.idLyric != subtitles[index - 1].idLyric) {
+  //         isLyric = true;
+  //       }
+  //     }
 
-      if (index < subtitles.length - 1) {
-        if (subtitle.idLyric != subtitles[index + 1].idLyric) {
-          isLast = true;
-        }
-      }
+  //     if (index < subtitles.length - 1) {
+  //       if (subtitle.idLyric != subtitles[index + 1].idLyric) {
+  //         isLast = true;
+  //       }
+  //     }
 
-      if (subtitle.idLyric.includes("index-")) {
-        isLast = false;
-        isLyric = false;
-      }
+  //     if (subtitle.idLyric.includes("index-")) {
+  //       isLast = false;
+  //       isLyric = false;
+  //     }
 
-      return { ...subtitle, isLyric: isLyric, isLast: isLast };
-    });
+  //     return { ...subtitle, isLyric: isLyric, isLast: isLast };
+  //   });
 
-    if (newSubtitle[0].idLyric.includes("index-")) {
-      newSubtitle[0].isLyric = true;
-    }
+  //   if (newSubtitle[0].idLyric.includes("index-")) {
+  //     newSubtitle[0].isLyric = true;
+  //   }
 
-    console.log(newSubtitle);
+  //   console.log(newSubtitle);
 
-    setListSubtitle(newSubtitle);
-  }, []);
+  //   setListSubtitle(newSubtitle);
+  // }, []);
 
   useEffect(() => {
     if (playing) {
@@ -126,7 +126,16 @@ const SubtitleDisplay = ({ song }: SubtitleDisplayProps) => {
     );
 
     if (currentTime == START_TIME) {
-      setActiveSubtitle([null, { text: "..." }, song.lyric[0]]);
+      setActiveSubtitle([
+        null,
+        {
+          text: "...",
+          _id: "",
+          start: "",
+          end: "",
+        },
+        song.lyric[0],
+      ]);
     }
 
     if (currIndex >= 0) {
@@ -152,7 +161,7 @@ const SubtitleDisplay = ({ song }: SubtitleDisplayProps) => {
     <div className="relative w-full h-full">
       <div className="flex flex-col justify-center items-center space-y-2 w-full h-full -mt-10">
         <div className="subtitle space-y-2 text-center">
-          {activeSubtitle.map((sub: any, index: number) => {
+          {activeSubtitle.map((sub: Lyric | null, index: number) => {
             let text: string = "...";
 
             if (sub != null) {

@@ -1,12 +1,9 @@
 "use client";
 
 import ThemeToggle from "@/components/themetoggle";
-import { songs } from "@/data/song";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
-
-const data: Song[] = songs;
 
 export default function Home() {
   const [keyword, setKeyword] = useState("");

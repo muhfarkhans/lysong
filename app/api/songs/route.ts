@@ -59,7 +59,7 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
 
-    const { error, value } = songSchema.validate(data, { abortEarly: false });
+    const { error } = songSchema.validate(data, { abortEarly: false });
 
     if (error) {
       return Response.json(
@@ -70,7 +70,7 @@ export async function POST(request: Request) {
       await connectToMongoDB();
       for (const songData of data) {
         const savedLyrics = await Promise.all(
-          songData.lyric.map(async (lyricData: any) => {
+          songData.lyric.map(async (lyricData: Lyric) => {
             const lyric = new Lyric(lyricData);
             await lyric.save();
             return lyric._id;
