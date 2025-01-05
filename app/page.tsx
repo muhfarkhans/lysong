@@ -39,6 +39,11 @@ export default function Home() {
             placeholder="Type Title..."
             className="w-full text-2xl pl-2 py-2 border rounded"
             onChange={(event) => setKeyword(event.target.value)}
+            onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+              if (event.key === "Enter") {
+                findLyric(keyword);
+              }
+            }}
           />
           <button
             className="px-6 py-2 rounded bg-blue-400 text-gray-50"
