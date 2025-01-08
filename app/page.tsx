@@ -1,23 +1,30 @@
 "use client";
 
-import ThemeToggle from "@/components/themetoggle";
-import axios from "axios";
 import Link from "next/link";
+import axios from "axios";
+import Loading from "@/components/loading";
+import ThemeToggle from "@/components/themetoggle";
+import { useTheme } from "next-themes";
 import { useState } from "react";
 
 export default function Home() {
+  const { theme } = useTheme();
   const [keyword, setKeyword] = useState("");
   const [list, setList] = useState<Song[]>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const findLyric = async (keyword: string) => {
+    setLoading(true);
     try {
       const res = await axios.get("/api/songs", {
         params: { keyword: keyword },
       });
 
       setList(res.data.data || []);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching lyrics:", error);
+      setLoading(false);
     }
   };
 
@@ -54,23 +61,35 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="space-y-6">
-        {list &&
-          list.map((song, index) => {
-            return (
-              <div
-                className="border rounded p-4 shadow hover:shadow-lg"
-                key={index}
-              >
-                <Link href={`/lyric/${song._id}`}>
-                  <p className="font-bold">{song.title}</p>
-                  <p>{song.timeEnd.substring(0, 5)}</p>
-                </Link>
-              </div>
-            );
-          })}
+      <div className="space-y-6 h-full">
+        {loading ? (
+          <div className="place-self-center">
+            <Loading theme={theme ?? ""} />
+          </div>
+        ) : (
+          <>
+            {list &&
+              list.map((song, index) => {
+                return (
+                  <div
+                    className={`border rounded p-4 ${
+                      theme == "dark"
+                        ? "shadow-white hover:text-gray-800 hover:bg-gray-50"
+                        : "shadow-black"
+                    } hover:shadow-lg`}
+                    key={index}
+                  >
+                    <Link href={`/lyric/${song._id}`}>
+                      <p className="font-bold">{song.title}</p>
+                      <p>{song.timeEnd.substring(0, 5)}</p>
+                    </Link>
+                  </div>
+                );
+              })}
 
-        {list?.length == 0 ? <p>Not found</p> : ""}
+            {list?.length == 0 ? <p>Not found</p> : ""}
+          </>
+        )}
       </div>
     </div>
   );
