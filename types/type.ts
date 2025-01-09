@@ -19,5 +19,6 @@ interface ISubtitleProps {
 }
 
 interface SubtitleDisplayProps {
+  theme: string;
   song: Song;
 }

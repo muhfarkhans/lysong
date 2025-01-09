@@ -1,9 +1,11 @@
 "use client";
 import SubtitleDisplay from "@/components/subtitle";
 import axios from "axios";
+import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 
 const LyricDetail = ({ params }: { params: Promise<{ id: string }> }) => {
+  const { theme } = useTheme();
   const [id, setId] = useState<string | null>(null);
   const [song, setSong] = useState<Song | null>(null);
 
@@ -50,7 +52,7 @@ const LyricDetail = ({ params }: { params: Promise<{ id: string }> }) => {
     <>
       <div className="container mx-auto px-8 md:px-20 h-screen">
         <div className="flex justify-center items-center h-full">
-          <SubtitleDisplay song={song} />
+          <SubtitleDisplay song={song} theme={theme ?? ""} />
         </div>
       </div>
     </>
