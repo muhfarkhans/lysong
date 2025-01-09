@@ -1,11 +1,12 @@
 "use client";
 
+import { useState } from "react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import axios from "axios";
 import Loading from "@/components/loading";
 import ThemeToggle from "@/components/themetoggle";
-import { useTheme } from "next-themes";
-import { useState } from "react";
+import { RiListCheck3 } from "react-icons/ri";
 
 export default function Home() {
   const { theme } = useTheme();
@@ -35,7 +36,10 @@ export default function Home() {
           <span className="font-bold">Lysong</span>
         </Link>
 
-        <div>
+        <div className="flex gap-4 items-center">
+          <Link href={"/req"}>
+            <RiListCheck3 />
+          </Link>
           <ThemeToggle />
         </div>
       </div>

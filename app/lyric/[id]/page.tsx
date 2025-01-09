@@ -4,7 +4,7 @@ import axios from "axios";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 
-const LyricDetail = ({ params }: { params: Promise<{ id: string }> }) => {
+const LyricDetailPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { theme } = useTheme();
   const [id, setId] = useState<string | null>(null);
   const [song, setSong] = useState<Song | null>(null);
@@ -59,4 +59,4 @@ const LyricDetail = ({ params }: { params: Promise<{ id: string }> }) => {
   );
 };
 
-export default LyricDetail;
+export default LyricDetailPage;

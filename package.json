@@ -11,6 +11,7 @@
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.9.2",
     "axios": "^1.7.9",
+    "date-fns": "^4.1.0",
     "joi": "^17.13.3",
     "lowdb": "^7.0.1",
     "mongoose": "^8.9.3",

@@ -13,6 +13,15 @@ type Song = {
   lyric: Lyric[];
 };
 
+type SongReq = {
+  _id: string;
+  name: string;
+  note: string;
+  songId: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 interface ISubtitleProps {
   text: string;
   start: string;
