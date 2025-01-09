@@ -18,9 +18,7 @@ export async function GET(request: Request) {
       };
     }
 
-    const songs = await Song.find(query)
-      .sort({ createdAt: -1 })
-      .populate("lyric");
+    const songs = await Song.find(query).populate("lyric");
 
     return NextResponse.json({ message: true, data: songs }, { status: 200 });
   } catch (error) {
