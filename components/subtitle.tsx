@@ -124,7 +124,9 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
 
   useEffect(() => {
     if (playing) {
-      YOUTUBE_ELEMENT.target.playVideo();
+      if (YOUTUBE_ELEMENT && YOUTUBE_ELEMENT.target) {
+        YOUTUBE_ELEMENT.target.playVideo();
+      }
 
       const interval = setInterval(() => {
         setCurrentTime((prevTime) => prevTime + 1);
@@ -133,7 +135,12 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
       return () => clearInterval(interval);
     } else {
       if (YOUTUBE_ELEMENT) {
-        YOUTUBE_ELEMENT.target.pauseVideo();
+        if (
+          YOUTUBE_ELEMENT.target &&
+          typeof YOUTUBE_ELEMENT.target.pauseVideo === "function"
+        ) {
+          YOUTUBE_ELEMENT.target.pauseVideo();
+        }
       }
     }
   }, [playing]);
