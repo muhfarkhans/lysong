@@ -64,7 +64,7 @@ export default function Home() {
       <div className="space-y-6 h-full">
         {loading ? (
           <div className="place-self-center">
-            <Loading theme={theme ?? ""} />
+            <Loading theme={theme ?? "light"} />
           </div>
         ) : (
           <>

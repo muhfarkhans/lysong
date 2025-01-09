@@ -19,9 +19,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${quicksand.variable} antialiased`}>
-        <ThemeProvider attribute="class">{children}</ThemeProvider>
+    <html lang="en" suppressHydrationWarning className="h-full">
+      <body className={`${quicksand.variable} antialiased min-h-full`}>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
