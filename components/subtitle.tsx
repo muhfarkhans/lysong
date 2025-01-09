@@ -206,13 +206,13 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
         </div> */}
         <div className="relative">
           <div
-            className={`h-10 w-full absolute top-0 bg-gradient-to-b to-transparent ${
-              theme == "dark" ? "from-black" : "from-white"
+            className={`h-10 w-full absolute -top-1 bg-gradient-to-b to-transparent ${
+              theme == "dark" ? "from-[#0a0a0a]" : "from-white"
             }`}
           ></div>
           <div
-            className={`h-10 w-full absolute bottom-0 bg-gradient-to-t to-transparent ${
-              theme == "dark" ? "from-black" : "from-white"
+            className={`h-10 w-full absolute -bottom-1 bg-gradient-to-t to-transparent ${
+              theme == "dark" ? "from-[#0a0a0a]" : "from-white"
             }`}
           ></div>
           <div
