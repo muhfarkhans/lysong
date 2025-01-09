@@ -224,7 +224,7 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
           ></div>
           <div
             id="box"
-            className="h-[500px] w-full p-4 rounded overflow-scroll no-scrollbar"
+            className="h-[400px] md:h-[500px] w-full p-4 rounded overflow-scroll no-scrollbar"
           >
             {listSubtitle.map((subtitle, index) => {
               let active = "";
