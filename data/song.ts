@@ -3,6 +3,7 @@ export const songs: Song[] = [
     _id: "f9d60a56-10a9-4777-b7c2-3d7006d91cda",
     title: "Till i - nzk",
     timeEnd: "04:41:00",
+    ytId: "string",
     lyric: [
       {
         _id: "f9d60a56-10a9-4777-b7c2-3d7006d91cda",

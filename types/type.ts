@@ -9,6 +9,7 @@ type Song = {
   _id: string;
   title: string;
   timeEnd: string;
+  ytId: string;
   lyric: Lyric[];
 };
 

@@ -5,6 +5,7 @@ interface Song extends Document {
   id: string;
   title: string;
   timeEnd: string;
+  ytId: string;
   lyric: Lyric[];
 }
 
@@ -12,6 +13,7 @@ const songSchema = new Schema<Song>({
   id: { type: String, required: true, unique: true },
   title: { type: String, required: true },
   timeEnd: { type: String, required: true },
+  ytId: { type: String, required: false },
   lyric: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Lyric", required: true },
   ],

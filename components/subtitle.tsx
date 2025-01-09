@@ -1,8 +1,24 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { secondsToTime, timeToSeconds } from "@/utils/utility";
+import {
+  RiPlayLargeFill,
+  RiResetLeftLine,
+  RiStopLargeFill,
+} from "react-icons/ri";
+import YouTube, { YouTubePlayer } from "react-youtube";
 
 const START_TIME: number = 0;
+
+const YOUTUBE_OPTIONS = {
+  height: "100",
+  width: "100%",
+  playerVars: {
+    autoplay: 0,
+  },
+};
+
+let YOUTUBE_ELEMENT: YouTubePlayer = null;
 
 const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
   const [playing, setPlaying] = useState(false);
@@ -108,11 +124,17 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
 
   useEffect(() => {
     if (playing) {
+      YOUTUBE_ELEMENT.target.playVideo();
+
       const interval = setInterval(() => {
         setCurrentTime((prevTime) => prevTime + 1);
       }, 1000);
 
       return () => clearInterval(interval);
+    } else {
+      if (YOUTUBE_ELEMENT) {
+        YOUTUBE_ELEMENT.target.pauseVideo();
+      }
     }
   }, [playing]);
 
@@ -154,6 +176,10 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
       });
     }
   }, [currentTime, song.lyric]);
+
+  const _onReady = (event: YouTubePlayer) => {
+    YOUTUBE_ELEMENT = event;
+  };
 
   return (
     <div className="relative w-full h-full">
@@ -217,32 +243,64 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
       </div>
 
       <div className="absolute bottom-0 h-14 w-full">
-        <div className="flex justify-center items-center">
-          <div className="w-3/4">
-            <p>{song.title}</p>
-            <h3>
-              {secondsToTime(currentTime)} / {song.timeEnd}
-            </h3>
+        <div className="flex justify-between items-center mb-2">
+          <div className="flex gap-2 items-center">
+            <div className="flex flex-col">
+              <p>{song.title}</p>
+              <h3>
+                {secondsToTime(currentTime)} / {song.timeEnd}
+              </h3>
+            </div>
           </div>
-          <div className="flex w-1/4 justify-end gap-2">
+          <div className="flex gap-2">
             <button
-              className={`px-6 py-2 rounded w-full text-gray-50 ${
+              className={`flex items-center justify-center w-12 h-12 rounded-full text-gray-50 ${
                 playing ? "bg-red-400" : "bg-green-400"
               }`}
-              onClick={() => setPlaying(!playing)}
+              onClick={() => {
+                setPlaying(!playing);
+                document.getElementById(`iframe-yt`);
+                const iframe = document.getElementById("iframe-yt");
+
+                if (iframe) {
+                  let src = iframe.getAttribute("src") ?? "";
+
+                  if (src.includes("?")) {
+                    src += "&autoplay=1";
+                  } else {
+                    src += "?autoplay=1";
+                  }
+
+                  console.log("src: ", src);
+
+                  iframe.setAttribute("src", src);
+                }
+              }}
             >
-              {playing ? "stop" : "play"}
+              {playing ? <RiStopLargeFill /> : <RiPlayLargeFill />}
             </button>
             <button
-              className="px-6 py-2 rounded bg-red-400 w-full text-gray-50"
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-red-400 text-gray-50"
               onClick={() => {
                 setPlaying(false);
                 setCurrentTime(START_TIME);
+                if (YOUTUBE_ELEMENT) {
+                  YOUTUBE_ELEMENT.target.seekTo(0, true);
+                }
               }}
             >
-              reset
+              <RiResetLeftLine />
             </button>
           </div>
+        </div>
+        <div>
+          <YouTube
+            videoId={"k2MWBy-Hb1M"}
+            opts={YOUTUBE_OPTIONS}
+            onReady={_onReady}
+            onPlay={() => setPlaying(true)}
+            onPause={() => setPlaying(false)}
+          />
         </div>
       </div>
     </div>

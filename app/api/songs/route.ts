@@ -45,6 +45,7 @@ export async function POST(request: Request) {
       timeEnd: Joi.string()
         .pattern(/^(?:[01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/, "time format")
         .required(),
+      ytId: Joi.string().required(),
       lyric: Joi.array().items(lyricSchema).required(),
     })
   );
@@ -81,6 +82,7 @@ export async function POST(request: Request) {
           id: songData.id,
           title: songData.title,
           timeEnd: songData.timeEnd,
+          ytId: songData.ytId,
           lyric: savedLyrics,
         });
         await song.save();
