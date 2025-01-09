@@ -42,8 +42,8 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
       );
 
       let text: string = "...";
-      let isLyric: boolean = false;
-      let isLast: boolean = false;
+      const isLyric: boolean = false;
+      const isLast: boolean = false;
       let idLyric: string = "index-" + index;
       let prev: number = 0;
       let next: number = timeToSeconds(song.timeEnd);
@@ -103,8 +103,6 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
       newSubtitle[0].isLyric = true;
     }
 
-    console.log(newSubtitle);
-
     setListSubtitle(newSubtitle);
   }, []);
 
@@ -119,11 +117,11 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
   }, [playing]);
 
   useEffect(() => {
-    const currIndex = song.lyric.findIndex(
-      (sub) =>
-        currentTime >= timeToSeconds(sub.start) &&
-        currentTime <= timeToSeconds(sub.end)
-    );
+    // const currIndex = song.lyric.findIndex(
+    //   (sub) =>
+    //     currentTime >= timeToSeconds(sub.start) &&
+    //     currentTime <= timeToSeconds(sub.end)
+    // );
 
     // if (currentTime == START_TIME) {
     //   setActiveSubtitle([
