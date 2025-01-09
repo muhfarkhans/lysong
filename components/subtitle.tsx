@@ -189,7 +189,7 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
   };
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-[calc(100%-100px)]">
       <div className="flex flex-col justify-center items-center space-y-2 w-full h-full -mt-10">
         {/* <div className="subtitle space-y-2 text-center">
           {activeSubtitle.map((sub: Lyric | null, index: number) => {
@@ -250,10 +250,10 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
       </div>
 
       <div className="absolute bottom-0 h-14 w-full">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-center mb-4">
           <div className="flex gap-2 items-center">
             <div className="flex flex-col">
-              <p>{song.title}</p>
+              <p className=" text-ellipsis">{song.title}</p>
               <h3>
                 {secondsToTime(currentTime)} / {song.timeEnd}
               </h3>
