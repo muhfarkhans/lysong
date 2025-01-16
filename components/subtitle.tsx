@@ -302,7 +302,7 @@ const SubtitleDisplay = ({ song, theme }: SubtitleDisplayProps) => {
         </div>
         <div>
           <YouTube
-            videoId={"k2MWBy-Hb1M"}
+            videoId={song.ytId}
             opts={YOUTUBE_OPTIONS}
             onReady={_onReady}
             onPlay={() => setPlaying(true)}
